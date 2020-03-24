@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class GroupHelper : HelperBase
+    public class GroupHelper : LoginHelper
     {
 
         public GroupHelper(ApplicationManager manager) : base(manager)
@@ -23,13 +23,14 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
-            Logout();
+            //Logout();
             return this;
         }
 
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupIsPresent();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -41,6 +42,7 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupIsPresent();
             SelectGroup(p);
             RemoveGroup();
             Logout();
@@ -68,12 +70,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
-            return this;
-        }
-
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
@@ -96,6 +92,21 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        public void GroupIsPresent()
+        {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                return;
+            }
+
+            GroupData group = new GroupData("aaa");
+            group.Header = "bbb";
+            group.Footer = "ccc";
+            Create(group);
+
+            manager.Navigator.GoToGroupsPage();
         }
     }
 }

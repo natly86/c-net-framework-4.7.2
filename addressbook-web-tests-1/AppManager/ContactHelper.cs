@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper : HelperBase
+    public class ContactHelper : LoginHelper
     {
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -20,13 +20,14 @@ namespace WebAddressbookTests
             manager.Navigator.GoToAddNewContactPage();
 
             FillContactForm(contact);
-            Logout();
+            //Logout();
             return this;
         }
 
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToHomePage();
+            ContactIsPresent();
             SelectContact(p);
             RemoveContact();
             Logout();
@@ -36,6 +37,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(int p, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
+            ContactIsPresent();
             InitContactModification();
             EditContactForm(newData);
             Logout();
@@ -76,12 +78,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
-            return this;
-        }
-
         public ContactHelper InitContactModification()
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
@@ -92,6 +88,20 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
+        }
+
+        public void ContactIsPresent()
+        {
+            if (IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                return;
+            }
+
+            ContactData contact = new ContactData("ivan");
+            contact.Lastname = "ivanov";
+            Create(contact);
+
+            manager.Navigator.GoToHomePage();
         }
     }
 }

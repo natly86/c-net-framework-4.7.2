@@ -23,7 +23,6 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
-            //Logout();
             return this;
         }
 
@@ -35,7 +34,6 @@ namespace WebAddressbookTests
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
-            Logout();
             return this;
         }
 
@@ -45,7 +43,6 @@ namespace WebAddressbookTests
             GroupIsPresent();
             SelectGroup(p);
             RemoveGroup();
-            Logout();
             return this;
         }
 

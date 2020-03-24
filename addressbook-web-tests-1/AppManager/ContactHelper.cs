@@ -20,7 +20,6 @@ namespace WebAddressbookTests
             manager.Navigator.GoToAddNewContactPage();
 
             FillContactForm(contact);
-            //Logout();
             return this;
         }
 
@@ -30,7 +29,6 @@ namespace WebAddressbookTests
             ContactIsPresent();
             SelectContact(p);
             RemoveContact();
-            Logout();
             return this;
         }
 
@@ -40,7 +38,6 @@ namespace WebAddressbookTests
             ContactIsPresent();
             InitContactModification();
             EditContactForm(newData);
-            Logout();
             return this;
         }
 

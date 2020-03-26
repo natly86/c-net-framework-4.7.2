@@ -23,17 +23,26 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        private List<ContactData> contactCache = null;
+        private string Id;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
-           //foreach (IWebElement element in elements)
-            //{
-                //contacts.Add(new ContactData(element.Text));
-            //}
-
-            return contacts;
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+                foreach (IWebElement element in elements)
+                {
+                    contactCache.Add(new ContactData(element.Text));
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value");
+                    }
+                }
+            }
+            return new List<ContactData>(contactCache);
         }
 
         public ContactHelper Remove(int p)
@@ -71,6 +80,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -84,6 +94,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
@@ -111,6 +122,11 @@ namespace WebAddressbookTests
             Create(contact);
 
             manager.Navigator.GoToHomePage();
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
         }
     }
 }

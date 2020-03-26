@@ -48,7 +48,6 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToHomePage();
-            ContactIsPresent();
             SelectContact(p);
             RemoveContact();
             return this;
@@ -57,7 +56,6 @@ namespace WebAddressbookTests
         public ContactHelper Modify(int p, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            ContactIsPresent();
             InitContactModification();
             EditContactForm(newData);
             return this;

@@ -25,7 +25,6 @@ namespace WebAddressbookTests
 
 
         private List<ContactData> contactCache = null;
-        private string Id;
 
         public List<ContactData> GetContactList()
         {
@@ -33,12 +32,16 @@ namespace WebAddressbookTests
             {
                 contactCache = new List<ContactData>();
                 manager.Navigator.GoToHomePage();
-                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
-                foreach (IWebElement element in elements)
+                ICollection<IWebElement> rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
+                foreach (IWebElement row in rows)
                 {
-                    contactCache.Add(new ContactData(element.Text));
+                    contactCache.Add(new ContactData(row.Text));
                     {
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("value");
+                        var cells = row.FindElements(By.XPath("//td"));
+                        var lastname = cells[1].Text;
+                        var firstname = cells[2].Text;
+                        ContactData contact = new ContactData(firstname);
+                        contact.Lastname = lastname;
                     }
                 }
             }

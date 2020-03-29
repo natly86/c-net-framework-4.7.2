@@ -39,13 +39,14 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "lastname=" + Lastname;
+            return "Lastname=" + Lastname + " " + Firstname;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other.Lastname, this.Lastname))
             {
+                Firstname.CompareTo(other.Firstname);
                 return 1;
             }
             return Lastname.CompareTo(other.Lastname);

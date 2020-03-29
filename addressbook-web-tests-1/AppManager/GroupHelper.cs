@@ -11,7 +11,6 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : LoginHelper
     {
-
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }

@@ -37,10 +37,10 @@ namespace WebAddressbookTests
             return Lastname.GetHashCode() & Firstname.GetHashCode();
         }
 
-        public override string ToString()
-        {
-            return "Lastname=" + Lastname + " " + Firstname;
-        }
+       public override string ToString()
+       {
+            return Lastname + " " + Firstname;
+       }
 
         public int CompareTo(ContactData other)
         {

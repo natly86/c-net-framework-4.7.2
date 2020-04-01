@@ -20,6 +20,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToAddNewContactPage();
 
             FillContactForm(contact);
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
@@ -37,7 +38,7 @@ namespace WebAddressbookTests
                 {
                     contactCache.Add(new ContactData(row.Text));
                     {
-                        var cells = row.FindElements(By.XPath("//td"));
+                        var cells = row.FindElements(By.XPath(".//td"));
                         var lastname = cells[1].Text;
                         var firstname = cells[2].Text;
                         ContactData contact = new ContactData(firstname);
@@ -53,6 +54,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             SelectContact(p);
             RemoveContact();
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
@@ -61,6 +63,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             InitContactModification();
             EditContactForm(newData);
+            manager.Navigator.GoToHomePage();
             return this;
         }
 

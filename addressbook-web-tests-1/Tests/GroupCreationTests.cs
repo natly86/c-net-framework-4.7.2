@@ -15,7 +15,9 @@ namespace WebAddressbookTests
         public void GroupCreationTest()
         {
             GroupData group = new GroupData("aaa");
-            group.Header = "ddd";
+            group.Header = @"d\d""
+d
+d";
             group.Footer = "fff";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();

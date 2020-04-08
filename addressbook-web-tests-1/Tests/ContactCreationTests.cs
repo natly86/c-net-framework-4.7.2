@@ -21,9 +21,12 @@ namespace WebAddressbookTests
             return contacts;
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
-        public void ContactCreationTest(ContactData contact)
+        [Test]
+            //, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest()
+            //(ContactData contact)
         {
+            ContactData contact = new ContactData("ivan", "ivanov");
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
@@ -35,20 +38,20 @@ namespace WebAddressbookTests
 
         }
 
-        //[Test]
-        //public void EmptyContactCreationTest()
-        //{
-        //    ContactData contact = new ContactData("", "");
+        [Test]
+        public void EmptyContactCreationTest()
+        {
+            ContactData contact = new ContactData("", "");
 
-        //    List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-        //    app.Contacts.Create(contact);
+            app.Contacts.Create(contact);
 
-        //    Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
-        //    List<ContactData> newContacts = app.Contacts.GetContactList();
-        //    Assert.AreEqual(oldContacts.Count, newContacts.Count);
-        //}
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            Assert.AreEqual(oldContacts.Count, newContacts.Count);
+        }
 
         [Test]
         public void BadNameContactCreationTest()

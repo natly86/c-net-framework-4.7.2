@@ -41,7 +41,6 @@ namespace WebAddressbookTests
                         var lastname = row.FindElements(By.XPath(".//td"))[1].Text;
                         var firstname = row.FindElements(By.XPath(".//td"))[2].Text;
                         ContactData contact = new ContactData(firstname, lastname);
-
                     }
                 }
             }
@@ -89,7 +88,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -205,7 +204,7 @@ namespace WebAddressbookTests
                 Email2 = email2,
                 Email3 = email3
             };
-       }
+        }
 
         public void initContactModification(int index)
         {

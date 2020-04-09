@@ -29,22 +29,27 @@ namespace WebAddressbookTests
 
         public List<ContactData> GetContactList()
         {
-            if (contactCache == null)
-            {
-                contactCache = new List<ContactData>();
-                manager.Navigator.GoToHomePage();
-                ICollection<IWebElement> rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
-                foreach (IWebElement row in rows)
+            //if (contactCache == null)
+            //{
+            //contactCache = new List<ContactData>();
+            //manager.Navigator.GoToHomePage();
+            //ICollection<IWebElement> rows = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> rows = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement row in rows)
                 {
-                    contactCache.Add(new ContactData((row.Text), ""));
-                    {
-                        var lastname = row.FindElements(By.XPath(".//td"))[1].Text;
-                        var firstname = row.FindElements(By.XPath(".//td"))[2].Text;
-                        ContactData contact = new ContactData(firstname, lastname);
-                    }
-                }
+                //contactCache.Add(new ContactData((row.Text), ""));
+                //{
+                //var lastname = row.FindElements(By.XPath(".//td"))[1].Text;
+                //var firstname = row.FindElements(By.XPath(".//td"))[2].Text;
+                //ContactData contact = new ContactData(firstname, lastname);
+                var cells = row.FindElements(By.TagName("td"));
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
+                //}
             }
-            return new List<ContactData>(contactCache);
+            //}
+            //return new List<ContactData>(contactCache);
+            return contacts;
         }
 
         public ContactHelper Remove(int p)

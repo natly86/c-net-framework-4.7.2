@@ -23,11 +23,10 @@ namespace WebAddressbookTests
             app.Contacts.Modify(0, newData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
-            Assert.AreEqual(oldContacts.Count, newContacts.Count);
-            //oldContacts[0].Firstname = newData.Firstname;
-            //oldContacts.Sort();
-            //newContacts.Sort();
-            //Assert.AreEqual(oldContacts, newContacts);
+            oldContacts[0].Lastname = newData.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
 
             //foreach (ContactData contact in newContacts)
             //{

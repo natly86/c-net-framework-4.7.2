@@ -25,7 +25,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private List<ContactData> contactCache = null;
+        //private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()
         {

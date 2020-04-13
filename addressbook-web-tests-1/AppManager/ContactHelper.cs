@@ -101,6 +101,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
             driver.SwitchTo().Alert().Accept();
+            driver.FindElement(By.CssSelector("div.msgbox"));
             contactCache = null;
             return this;
         }
@@ -155,33 +156,49 @@ namespace WebAddressbookTests
             };
         }
 
-        public ContactData GetContactInformationFromViewPage(int index)
-        {
-            manager.Navigator.GoToHomePage();
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
+        //public ContactData GetContactInformationFromViewPage(int index)
+        //{
+        //    string homePhone = null;
+        //    string mobilePhone = null;
+        //    string workPhone = null;
+        //    string address = null;
+        //    manager.Navigator.GoToHomePage();
+        //    driver.FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
 
-            string text = driver.FindElement(By.XPath("//div[@id='content']")).GetAttribute("innerText");
-            string[] result = text.Split(new string[] { "<br>" }, StringSplitOptions.None);
-            string lastName = result[0];
-            string firstName = result[1];
-            string address = result[2];
+        //    string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
+        //    string fullName = lines[0].Trim();
+        //    if (lines.Length == 1)
+        //    {
+        //        address = "";
+        //    }
+        //    else
+        //    {
+        //        address = lines[1];
+        //    }
 
-            //IList<IWebElement> text = driver.FindElements(By.Id("contenct"))[index]
-            //.FindElements(By.TagName("br"));
-            //string lastName = text[1].Text;
-            //string firstName = text[2].Text;
-            //string address = text[3].Text;
+        //    foreach (string l in lines)
+        //    {
+        //        if (l.StartsWith("H:"))
+        //        {
+        //            homePhone = l.Substring(3);
+        //        }
+        //        if (l.StartsWith("M:"))
+        //        {
+        //            mobilePhone = l.Substring(3);
+        //        }
+        //        if (l.StartsWith("W:"))
+        //        {
+        //            workPhone = l.Substring(3);
+        //        }
+        //    }
 
-
-            //string text = driver.FindElement(By.XPath("//div[@id='content']")).GetAttribute("innerText");
-            //var lastname = row.FindElements(By.XPath(".//td"))[1].Text;
-            return new ContactData(firstName, lastName)
-            {
-                Address = address,
-                //AllEmails = allEmails,
-                //AllPhones = allPhones
-            };
-        }
+        //    //return new ContactData(firstName, lastName)
+        //    //{
+        //    //    Address = address,
+        //    //    AllEmails = allEmails,
+        //    //    AllPhones = allPhones
+        //    //};
+        //}
 
         public ContactData GetContactInformationFromEditForm(int index)
         {

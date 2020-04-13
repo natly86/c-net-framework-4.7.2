@@ -14,9 +14,9 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
             app.Groups.GroupIsPresent();
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Remove(0);
 

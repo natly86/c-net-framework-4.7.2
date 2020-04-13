@@ -15,10 +15,10 @@ namespace WebAddressbookTests
         {
             ContactData newData = new ContactData("petr", "petrov");
 
-           List<ContactData> oldContacts = app.Contacts.GetContactList();
-           ContactData oldData = oldContacts[0];
-
             app.Contacts.ContactIsPresent();
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData oldData = oldContacts[0];
 
             app.Contacts.Modify(0, newData);
 

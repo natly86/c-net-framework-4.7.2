@@ -69,7 +69,7 @@ namespace WebAddressbookTests
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
-            Assert.AreEqual(oldContacts.Count - 1, newContacts.Count);
+            Assert.AreEqual(oldContacts, newContacts);
 
         }
     }

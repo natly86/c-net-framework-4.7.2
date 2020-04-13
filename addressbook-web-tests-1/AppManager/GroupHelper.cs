@@ -96,8 +96,8 @@ namespace WebAddressbookTests
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
-            groupCache = null;
             driver.FindElement(By.LinkText("group page")).Click();
+            groupCache = null;
             return this;
         }
 
@@ -111,6 +111,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("delete")).Click();
             groupCache = null;
+            manager.Navigator.GoToGroupsPage();
             return this;
         }
 
@@ -118,6 +119,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("update")).Click();
             groupCache = null;
+            manager.Navigator.GoToGroupsPage();
             return this;
         }
 

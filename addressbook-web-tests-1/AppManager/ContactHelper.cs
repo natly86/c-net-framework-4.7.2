@@ -32,14 +32,14 @@ namespace WebAddressbookTests
         {
             if (contactCache == null)
             {
-            contactCache = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+
                 foreach (IWebElement element in elements)
                 {
-                var cells = element.FindElements(By.TagName("td"));
-                contactCache.Add(new ContactData(cells[2].Text, cells[1].Text));
+                    var cells = element.FindElements(By.TagName("td"));
+                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text));
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value");
                     }
@@ -152,49 +152,22 @@ namespace WebAddressbookTests
             };
         }
 
-        //public ContactData GetContactInformationFromViewPage(int index)
-        //{
-        //    string homePhone = null;
-        //    string mobilePhone = null;
-        //    string workPhone = null;
-        //    string address = null;
-        //    manager.Navigator.GoToHomePage();
-        //    driver.FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
+        public ContactData GetContactInformationFromViewPage(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElement(By.XPath("(//img[@alt='Details'])")).Click();
+            driver.FindElement(By.XPath("(//input[@value='Print'])")).Click();
 
-        //    string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
-        //    string fullName = lines[0].Trim();
-        //    if (lines.Length == 1)
-        //    {
-        //        address = "";
-        //    }
-        //    else
-        //    {
-        //        address = lines[1];
-        //    }
+            string info = driver.FindElement(By.CssSelector("div")).Text;
+            string firstName = "";
+            string lastName = "";
 
-        //    foreach (string l in lines)
-        //    {
-        //        if (l.StartsWith("H:"))
-        //        {
-        //            homePhone = l.Substring(3);
-        //        }
-        //        if (l.StartsWith("M:"))
-        //        {
-        //            mobilePhone = l.Substring(3);
-        //        }
-        //        if (l.StartsWith("W:"))
-        //        {
-        //            workPhone = l.Substring(3);
-        //        }
-        //    }
+            return new ContactData(firstName, lastName)
+            {
+                AllInfo = info.Remove(info.Length-25)
+            };
 
-        //    //return new ContactData(firstName, lastName)
-        //    //{
-        //    //    Address = address,
-        //    //    AllEmails = allEmails,
-        //    //    AllPhones = allPhones
-        //    //};
-        //}
+        }
 
         public ContactData GetContactInformationFromEditForm(int index)
         {
@@ -213,16 +186,23 @@ namespace WebAddressbookTests
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
+            //return new ContactData(firstName, lastName)
+            //{
+            //    Address = address,
+            //    HomePhone = homePhone,
+            //    MobilePhone = mobilePhone,
+            //    WorkPhone = workPhone,
+            //    Email = email,
+            //    Email2 = email2,
+            //    Email3 = email3
+            //};
+
+            string allInfo = firstName + lastName + address + homePhone + mobilePhone + workPhone + email + email2 + email3;
+
             return new ContactData(firstName, lastName)
             {
-                Address = address,
-                HomePhone = homePhone,
-                MobilePhone = mobilePhone,
-                WorkPhone = workPhone,
-                Email = email,
-                Email2 = email2,
-                Email3 = email3
-            };
+                AllInfo = allInfo
+            }; 
         }
 
         public void initContactModification(int index)

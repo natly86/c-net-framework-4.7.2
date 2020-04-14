@@ -22,16 +22,13 @@ namespace WebAddressbookTests
             Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
         }
 
-       //[Test]
-       // public void TestViewContactInformation()
-       // {
-       //     ContactData fromViewPage = app.Contacts.GetContactInformationFromViewPage(0);
-       //     ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+        [Test]
+        public void TestViewContactInformation()
+        {
+            ContactData fromViewPage = app.Contacts.GetContactInformationFromViewPage(0);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
-       //     Assert.AreEqual(fromViewPage, fromForm);
-       //     Assert.AreEqual(fromViewPage.Address, fromForm.Address);
-            //Assert.AreEqual(fromViewPage.AllPhones, fromForm.AllPhones);
-            //Assert.AreEqual(fromViewPage.AllEmails, fromForm.AllEmails);
-        //}
+            Assert.AreEqual(fromViewPage.AllInfo, fromForm.AllInfo);
+        }
     }
 }

@@ -197,7 +197,24 @@ namespace WebAddressbookTests
             //    Email3 = email3
             //};
 
-            string allInfo = firstName + lastName + address + homePhone + mobilePhone + workPhone + email + email2 + email3;
+            string allInfo = firstName + lastName + address + Phones(homePhone) + Phones(mobilePhone) + Phones(workPhone) + email + email2 + email3;
+
+            string Phones(string phone)
+            {
+                if (phone != "")
+                {
+                    if (phone == homePhone || phone == mobilePhone)
+                    {
+                        if (phone == homePhone)
+                        {
+                            return "H:" + phone + "\r\n";
+                        }
+                        return "M:" + phone + "\r\n";
+                    }
+                    return "W:" + phone + "\r\n";
+                }
+                return phone;
+            }
 
             return new ContactData(firstName, lastName)
             {

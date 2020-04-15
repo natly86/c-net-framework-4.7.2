@@ -21,6 +21,10 @@ namespace addressbook_test_data_generators
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
             {
+                //writer.WriteLine(String.Format("${0},${1},${2}",
+                //    TestBase.GenerateRandomString(10),
+                //    TestBase.GenerateRandomString(10),
+                //    TestBase.GenerateRandomString(10)));
                 groups.Add(new GroupData(TestBase.GenerateRandomString(10))
                 {
                     Header = TestBase.GenerateRandomString(10),
@@ -42,7 +46,7 @@ namespace addressbook_test_data_generators
             writer.Close();
         }
 
-        static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
+        public static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
             {
@@ -51,7 +55,7 @@ namespace addressbook_test_data_generators
             }
         }
 
-        static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
+        public static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }

@@ -57,7 +57,7 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
         }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();

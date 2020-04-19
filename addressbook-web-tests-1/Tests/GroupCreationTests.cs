@@ -57,21 +57,24 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
-        public void GroupCreationTest(GroupData group)
-        {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+        //[Test]
+        //public void GroupCreationTest()
+        //{
+        //    GroupData group = new GroupData("qqq");
+        //    group.Header = "www";
+        //    group.Footer = "ttt";
+        //    List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(group);
+        //    app.Groups.Create(group);
 
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+        //    Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
-        }
+        //    List<GroupData> newGroups = app.Groups.GetGroupList();
+        //    oldGroups.Add(group);
+        //    oldGroups.Sort();
+        //    newGroups.Sort();
+        //    Assert.AreEqual(oldGroups, newGroups);
+        //}
 
         //[Test]
         //public void EmptyGroupCreationTest()
@@ -113,24 +116,21 @@ namespace WebAddressbookTests
         //    Assert.AreEqual(oldGroups, newGroups);
         //}
 
-        //[Test, TestCaseSource("GroupDataFromFile")]
-        //public void GroupCreationTest(GroupData group)
-        //{
-        //    //GroupData group = new GroupData("qqq");
-        //    //group.Header = "www";
-        //    //group.Footer = "ttt";
-        //    List<GroupData> oldGroups = GroupData.GetAll();
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public void GroupCreationTest(GroupData group)
+        {
+            List<GroupData> oldGroups = GroupData.GetAll();
 
-        //    app.Groups.Create(group);
+            app.Groups.Create(group);
 
-        //    Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-        //    List<GroupData> newGroups = GroupData.GetAll();
-        //    oldGroups.Add(group);
-        //    oldGroups.Sort();
-        //    newGroups.Sort();
-        //    Assert.AreEqual(oldGroups, newGroups);
-        //}
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
 
         //[Test]
         //public void TestDBConnectivity()
@@ -155,13 +155,13 @@ namespace WebAddressbookTests
         //    }
         //}
 
-        [Test]
-        public void TestDBConnectivity()
-        {
-            foreach (ContactData contact in ContactData.GetAll())
-            {
-                System.Console.Out.WriteLine(contact.Deprecated);
-            }
-        }
+        //[Test]
+        //public void TestDBConnectivity()
+        //{
+        //    foreach (ContactData contact in ContactData.GetAll())
+        //    {
+        //        System.Console.Out.WriteLine(contact.Deprecated);
+        //    }
+        //}
     }
 }

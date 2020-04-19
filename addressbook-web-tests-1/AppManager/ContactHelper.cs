@@ -93,12 +93,36 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper ModifyById(ContactData contact, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContactById(contact.Id);
+            InitContactModification();
+            EditContactForm(newData);
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper SelectContactById(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
+            return this;
+        }
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
             driver.SwitchTo().Alert().Accept();
             driver.FindElement(By.CssSelector("div.msgbox"));
             contactCache = null;
+            return this;
+        }
+
+        public ContactHelper RemoveById(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContactById(contact.Id);
+            RemoveContact();
             return this;
         }
 
@@ -248,6 +272,16 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroupToRemove(group.Id);
+            SelectContactById(contact.Id);
+            CommitRemovingContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
         public void SelectContactID(string contactId)
         {
             driver.FindElement(By.Id(contactId)).Click();
@@ -256,6 +290,16 @@ namespace WebAddressbookTests
         public void CommitAddingContactToGroup()
         {
             driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToRemove(string id)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(id);
+        }
+
+        public void CommitRemovingContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
         }
 
         public void SelectGroupToAdd(string name)

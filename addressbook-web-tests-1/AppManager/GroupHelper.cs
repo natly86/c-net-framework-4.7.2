@@ -80,11 +80,21 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Remove(GroupData group)
+        public GroupHelper RemoveById(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(group.Id);
+            SelectGroupById(group.Id);
             RemoveGroup();
+            return this;
+        }
+
+        public GroupHelper ModifyById(GroupData group, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroupById(group.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
             return this;
         }
 
@@ -116,7 +126,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper SelectGroup(String id)
+        public GroupHelper SelectGroupById(String id)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;

@@ -35,21 +35,21 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
-        public void ContactCreationTest(ContactData contact)
-        {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+        //[Test, TestCaseSource("ContactDataFromJsonFile")]
+        //public void ContactCreationTest(ContactData contact)
+        //{
+        //    List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.Create(contact);
+        //    app.Contacts.Create(contact);
 
-            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+        //    Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
+        //    List<ContactData> newContacts = app.Contacts.GetContactList();
+        //    oldContacts.Sort();
+        //    newContacts.Sort();
+        //    Assert.AreEqual(oldContacts, newContacts);
 
-        }
+        //}
 
         //[Test]
         //public void EmptyContactCreationTest()
@@ -84,5 +84,22 @@ namespace WebAddressbookTests
         //    Assert.AreEqual(oldContacts, newContacts);
 
         //}
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        public void ContactCreationTest(ContactData contact)
+        {
+            List<ContactData> oldContacts = ContactData.GetAll();
+
+            app.Contacts.Create(contact);
+
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
+        }
     }
 }

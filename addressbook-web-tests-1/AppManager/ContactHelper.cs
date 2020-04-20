@@ -48,6 +48,12 @@ namespace WebAddressbookTests
             return new List<ContactData>(contactCache);
         }
 
+        public string GetContactId()
+        {
+             manager.Navigator.GoToHomePage();
+             return driver.FindElements(By.XPath("//tr/td/input[@name='selected[]']")).Last().GetAttribute("value");
+        }
+
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToHomePage();
